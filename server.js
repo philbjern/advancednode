@@ -34,7 +34,7 @@ myDB(async client => {
   routes(app, myDataBase);
 
   app.use((req, res, next) => {
-    req.status(404)
+    res.status(404)
       .type('text')
       .send('Not Found');
   });

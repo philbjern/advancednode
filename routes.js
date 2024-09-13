@@ -5,7 +5,7 @@ module.exports = function (app, myDataBase) {
     app.route('/').get((req, res) => {
         res.render('index', {
             title: 'Connected to Database', message: 'Please log in', showLogin: true,
-            showRegistration: true
+            showRegistration: true, showSocialAuth: true,
         });
     });
 
@@ -59,5 +59,16 @@ module.exports = function (app, myDataBase) {
             (req, res, next) => {
                 res.redirect('/profile');
             });
+
+    app.route('/auth/github')
+    .get((req, res) => {
+        passport.authenticate('github');
+    });
+
+    app.route('/auth/github/callback')
+    .get((req, res) => {
+        passport.authenticate('github', { failureRedirect: '/' })
+        res.redirect('/profile');
+    });
 
 }
